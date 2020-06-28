@@ -1,0 +1,15 @@
+package jack.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController // hey spring, this class is a controller
+
+// for any incoming HTTP requests, look at this file to determine what to do
+public class HelloController {
+
+	@GetMapping("")
+	public void String() {
+		return "Hello";
+	}
+}

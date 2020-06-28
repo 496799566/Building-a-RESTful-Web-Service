@@ -1,0 +1,54 @@
+package jack.controller;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+
+import jack.model.Greeting;
+
+@RestController // hey spring, this class is a controller
+
+// for any incoming HTTP requests, look at this file to determine what to do
+
+@RequestMapping("") // localhost:8080
+public class HelloController {
+	
+	private static final String template = "Hello, %s!";
+	private final AtomicLong counter = new AtomicLong();
+
+	@GetMapping("greeting")
+	public Greeting getGreeting( @RequestParam( defaultValue = "defaultName") String name ) {
+		
+		return new Greeting(counter.getAndIncrement(), String.format(template, name));
+		
+	}
+
+	@GetMapping("") // for all GET request that maps to the end point => localhost:8080
+	public Map<String, String> getName( @RequestParam(defaultValue = "default name") String firstName) {
+		
+		Map<String, String> map = new HashMap<>();
+		
+		String temp;
+		int total = 1;
+		
+		for(int i = 0; i < total; i++) {
+			
+			temp = String.valueOf(i);
+			
+			map.put("key" + temp, "value" + temp + " and name=" + firstName);
+			
+		}
+		
+		return map;
+	}
+	
+	
+}
